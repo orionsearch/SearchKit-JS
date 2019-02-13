@@ -9,13 +9,14 @@ class OSQuery {
 		const str = parsedFilters[parsedFilters.length - 1]
 		const keywords = this._extractKeywords(str, lang)
 		const scores = this._scoreKeywords(keywords)
+		parsedFilters.splice(-1,1)
 		this.parsed = {
-			"filters": parsedFilters.splice(-1,1),
+			"filters": parsedFilters,
 			"keywords": scores
 		}
 	}
 	_removeAndParseFilters(text) {
-		const regex = /\S*:\S*/
+		const regex = /\S*:\S*/gm
 		const matches = text.match(regex)
 		let t = text
 		let out = []
@@ -25,7 +26,7 @@ class OSQuery {
 			const f = split[1]
 			out.push([name, f])
 			// remove text
-			t.replace(filter, "")
+			t = t.replace(filter, "")
 		})
 		out.push(t)
 		return out
@@ -34,19 +35,19 @@ class OSQuery {
 		const stopwords = require('stopwords-iso');
 		const stops = stopwords[lang]
 		let t = text.toLowerCase()
-		const tokens = t.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "")
+		const tokens = t.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?]/g, "")
 			.replace(/\s{2,}/g, " ")
 			.split(" ")
 		let out = []
 		tokens.forEach(str => {
-			if (!stops.includes(str)) {
+			if (!stops.includes(str) && str != "") {
 				out.push(str)
 			}
 		})
 		if (out.length != 0) {
 			return out
 		}
-		return tokens
+		return tokens.filter(a => a != "")
 	}
 	_scoreKeywords(keys) {
 		const l = keys.length
@@ -57,8 +58,9 @@ class OSQuery {
 		))
 		uniq.forEach(key => {
 			const n = count.get(key)
-			out[key] = d / ld
+			out[key] = n / l
 		})
 		return out
 	}
 }
+module.exports = OSQuery

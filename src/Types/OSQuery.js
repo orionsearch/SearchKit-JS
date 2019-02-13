@@ -25,9 +25,9 @@ class OSQuery {
 		const stopwords = require('stopwords-iso');
 		const stops = stopwords[lang]
 		let t = text.toLowerCase()
-		const tokens = t.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"")
-						.replace(/\s{2,}/g," ")
-						.split(" ")
+		const tokens = t.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "")
+			.replace(/\s{2,}/g, " ")
+			.split(" ")
 		let out = []
 		tokens.forEach(str => {
 			if (!stops.includes(str)) {
@@ -38,5 +38,18 @@ class OSQuery {
 			return out
 		}
 		return tokens
+	}
+	_scoreKeywords(keys) {
+		const l = keys.length
+		const uniq = [...new Set(keys)]
+		let out = {}
+		const count	= new Map(uniq.map(
+				x => [x, uniq.filter(y => y === x).length]
+		))
+		uniq.forEach(key => {
+			const n = count.get(key)
+			out[key] = d / ld
+		})
+		return out
 	}
 }

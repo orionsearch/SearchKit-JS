@@ -21,4 +21,22 @@ class OSQuery {
 		out.push(t)
 		return out
 	}
+	_extractKeywords(text, lang = "en") {
+		const stopwords = require('stopwords-iso');
+		const stops = stopwords[lang]
+		let t = text.toLowerCase()
+		const tokens = t.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"")
+						.replace(/\s{2,}/g," ")
+						.split(" ")
+		let out = []
+		tokens.forEach(str => {
+			if (!stops.includes(str)) {
+				out.push(str)
+			}
+		})
+		if (out.length != 0) {
+			return out
+		}
+		return tokens
+	}
 }

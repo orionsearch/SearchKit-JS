@@ -24,5 +24,8 @@
   "homepage": "https://github.com/orionsearch/SearchKit-JS#readme",
   "devDependencies": {
     "eye.js": "^1.1.2"
+  },
+  "dependencies": {
+    "stopwords-iso": "^0.4.0"
   }
 }

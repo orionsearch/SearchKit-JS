@@ -1,4 +1,4 @@
-const {OSQuery} = require(__testDir + "../index.js")
+const { OSQuery } = require(__testDir + "../index.js")
 eye.describe("Parsing", () => {
 	const str = "How tall is eiffel tower? tag:paris"
 	const query = new OSQuery(str)

@@ -1,9 +1,18 @@
 class OSQuery {
-	constructor(s, keys = null, filters = null) {
+	constructor(s, lang = "en", keys = null, filters = null) {
 		this.limit = 25
 		this.str = s
 		this.keys = null
 		this.filters = null
+
+		const parsedFilters = this._removeAndParseFilters(s)
+		const str = parsedFilters[parsedFilters.length - 1]
+		const keywords = this._extractKeywords(str, lang)
+		const scores = this._scoreKeywords(keywords)
+		this.parsed = {
+			"filters": parsedFilters.splice(-1,1),
+			"keywords": scores
+		}
 	}
 	_removeAndParseFilters(text) {
 		const regex = /\S*:\S*/

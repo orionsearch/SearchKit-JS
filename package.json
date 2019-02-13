@@ -1,0 +1,28 @@
+{
+  "name": "orionsearch",
+  "version": "0.0.1",
+  "description": "OrionSearch's backend SearchKit written in JavaScript",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/.bin/eye"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/orionsearch/SearchKit-JS.git"
+  },
+  "keywords": [
+    "orion",
+    "search",
+    "orionsearch",
+    "searchkit"
+  ],
+  "author": "Arthur Guiot & OrionSearch",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/orionsearch/SearchKit-JS/issues"
+  },
+  "homepage": "https://github.com/orionsearch/SearchKit-JS#readme",
+  "devDependencies": {
+    "eye.js": "^1.1.2"
+  }
+}

@@ -1,4 +1,7 @@
-const { OSDatabase, OSRecord } = require(__testDir + "../index.js")
+const {
+	OSDatabase,
+	OSRecord
+} = require(__testDir + "../index.js")
 
 eye.describe("Configure", () => {
 	const db = new OSDatabase()
@@ -17,8 +20,19 @@ eye.describe("Configure", () => {
 		})
 	]
 	db.configure("title")
-	console.log(db.keywordsCache)
+	
 	eye.test("Keywords Cache", "node",
-		$ => $(db.keywordsCache).Equal(new Set(["hello", "world", "you", "random", "titles", "just", "test"]))
+		$ => $([...db.keywordsCache]).Equal([
+			'hello',
+			'world',
+			'how',
+			'are',
+			'you',
+			'random',
+			'titles',
+			'just',
+			'for',
+			'test'
+		])
 	)
 })

@@ -1,17 +1,29 @@
-const { OSRecord } = require("../includes.js")
+const {
+	OSRecord
+} = require("../includes.js")
 class OSDatabase {
-	constructor(cache=new Set()) {
+	constructor(cache = new Set()) {
 		this.keywordsCache = cache
 		this._data = []
 	}
-	configure(main, secondary=null, lang="en") {
+	configure(main, secondary = null, lang = "en") {
 		const stopwords = require('stopwords-iso');
 		const stops = stopwords[lang]
+
 		function tokenize(text) {
 			const t = text.toLowerCase()
 			const tokens = t.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?]/g, "")
 				.replace(/\s{2,}/g, " ")
 				.split(" ")
+			let out = []
+			tokens.forEach(str => {
+				if (!stops.includes(str) && str != "") {
+					out.push(str)
+				}
+			})
+			if (out.length != 0) {
+				return out
+			}
 			return tokens.filter(a => a != "")
 		}
 		this.select().forEach(record => {
@@ -33,21 +45,31 @@ class OSDatabase {
 			}
 		})
 	}
-	select(contains=null) {
+	select(contains = null) {
 		if (typeof this._sFunction != "undefined") {
 			return this._sFunction(contains)
 		} else {
 			return this._select(contains)
 		}
 	}
-	add(records, main, secondary=null) {
+	add(records, main, secondary = null) {
 		const stopwords = require('stopwords-iso');
 		const stops = stopwords[lang]
+
 		function tokenize(text) {
 			const t = text.toLowerCase()
 			const tokens = t.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?]/g, "")
 				.replace(/\s{2,}/g, " ")
 				.split(" ")
+			let out = []
+			tokens.forEach(str => {
+				if (!stops.includes(str) && str != "") {
+					out.push(str)
+				}
+			})
+			if (out.length != 0) {
+				return out
+			}
 			return tokens.filter(a => a != "")
 		}
 		records.forEach(record => {

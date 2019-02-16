@@ -34,7 +34,7 @@ class OSQuery {
 	_extractKeywords(text, lang = "en") {
 		const stopwords = require('stopwords-iso');
 		const stops = stopwords[lang]
-		let t = text.toLowerCase()
+		const t = text.toLowerCase()
 		const tokens = t.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?]/g, "")
 			.replace(/\s{2,}/g, " ")
 			.split(" ")

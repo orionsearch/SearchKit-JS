@@ -45,11 +45,11 @@ class OSDatabase {
 			}
 		})
 	}
-	select(contains = null) {
+	select(contains = null, key="keywords") {
 		if (typeof this._sFunction != "undefined") {
-			return this._sFunction(contains)
+			return this._sFunction(key, contains)
 		} else {
-			return this._select(contains)
+			return this._select(key, contains)
 		}
 	}
 	add(records, main, secondary = null) {
@@ -101,14 +101,20 @@ class OSDatabase {
 		this._aFunction = add
 		this._kFunction = keywords
 	}
-	_select(contains) {
+	_select(key, contains) {
 		if (contains == null) {
 			return this._data
 		} else {
 			let out = []
 			this._data.forEach(record => {
-				if (record.data.keywords.has(contains)) {
-					out.push(record)
+				if (key == "keywords") {
+					if (record.data[key].has(contains)) {
+						out.push(record)
+					}
+				} else {
+					if (record.data[key].split(" ").includes(contains)) {
+						out.push(record)
+					}
 				}
 			})
 			return out

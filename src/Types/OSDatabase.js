@@ -27,17 +27,17 @@ class OSDatabase {
 				})
 			}
 			if (typeof this._kFunction != "undefined") {
-				this._kFunction(keys)
+				this._kFunction(keys, record)
 			} else {
-				this._keywords(keys)
+				this._keywords(keys, record)
 			}
 		})
 	}
 	select(contains=null) {
 		if (typeof this._sFunction != "undefined") {
-			this._sFunction(contains)
+			return this._sFunction(contains)
 		} else {
-			this._select(contains)
+			return this._select(contains)
 		}
 	}
 	add(records, main, secondary=null) {
@@ -63,15 +63,15 @@ class OSDatabase {
 				})
 			}
 			if (typeof this._kFunction != "undefined") {
-				this._kFunction(contains)
+				this._kFunction(keys, record)
 			} else {
-				this._keywords(records)
+				this._keywords(keys, record)
 			}
 		})
 		if (typeof this._aFunction != "undefined") {
-			this._aFunction(contains)
+			return this._aFunction(contains)
 		} else {
-			this._add(records)
+			return this._add(records)
 		}
 	}
 	setPlugin(select, add, keywords) {
@@ -98,7 +98,7 @@ class OSDatabase {
 		})
 	}
 	_keywords(keys, record) {
-		record.data["keywords"] = keys
+		record.data.keywords = keys
 	}
 }
 

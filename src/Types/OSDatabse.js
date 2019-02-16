@@ -24,9 +24,34 @@ class OSDatabase {
 		})
 	}
 	select(contains=null) {
-
+		this._select(contains)
 	}
-	add(data) {
+	add(records, main, secondary=null) {
+		const stopwords = require('stopwords-iso');
+		const stops = stopwords[lang]
+		function tokenize(text) {
+			const t = text.toLowerCase()
+			const tokens = t.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?]/g, "")
+				.replace(/\s{2,}/g, " ")
+				.split(" ")
+			return tokens.filter(a => a != "")
+		}
+		records.forEach(record => {
+			tokenize(record.data[main]).forEach(t => {
+				this.keywordsCache.add(t)
+			})
+			if (secondary != null) {
+				tokenize(record.data[secondary]).forEach(t => {
+					this.keywordsCache.add(t)
+				})
+			}
+		})
+		this._add(records)
+	}
+	_select(contains) {
+		
+	}
+	_add(records) {
 
 	}
 }

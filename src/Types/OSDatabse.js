@@ -1,6 +1,6 @@
 class OSDatabase {
-	constructor() {
-		this.keywordsCache = new Set()
+	constructor(cache=new Set()) {
+		this.keywordsCache = cache
 	}
 	configure(main, secondary=null, lang="en") {
 		const stopwords = require('stopwords-iso');
@@ -49,7 +49,7 @@ class OSDatabase {
 		this._add(records)
 	}
 	_select(contains) {
-		
+
 	}
 	_add(records) {
 

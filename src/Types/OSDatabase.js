@@ -8,7 +8,11 @@ class OSDatabase {
 	}
 	configure(main, secondary = null, lang = "en") {
 		const tokenize = require("../Helpers/tokenize.js")
+<<<<<<< HEAD
 
+=======
+		
+>>>>>>> a8bf8b9bddc3af64c01f63aa5863eace4877cb3f
 		this.select().forEach(record => {
 			const keys = new Set()
 			tokenize(record.data[main], lang).forEach(t => {

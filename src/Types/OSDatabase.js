@@ -52,7 +52,7 @@ class OSDatabase {
 			return this._select(key, contains)
 		}
 	}
-	add(records, main, secondary = null) {
+	add(records, main, secondary = null, lang="en") {
 		const stopwords = require('stopwords-iso');
 		const stops = stopwords[lang]
 

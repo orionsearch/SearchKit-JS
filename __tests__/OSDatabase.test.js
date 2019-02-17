@@ -43,4 +43,15 @@ eye.describe("Configure", () => {
 		$ => $(db.select("world")[0].data.title).Equal("Hello World"),
 		$ => $(db.select("you", "author")[0].data.title).Equal("How are you")
 	)
+	eye.test("Add", "node",
+		$ => {
+			db.add([
+				new OSRecord({
+					title: "Let's add some content",
+					author: "Unknown"
+				})
+			], "title")
+			return $(db.keywordsCache.has("content")).Equal(true)
+		}
+	)
 })

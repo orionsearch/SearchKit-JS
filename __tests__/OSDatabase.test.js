@@ -24,8 +24,7 @@ eye.describe("Configure", () => {
 		})
 	]
 	db.configure("title")
-
-	eye.test("Keywords Cache", "node",
+	eye.test("Keywords & Cache", "node",
 		$ => $([...db.keywordsCache]).Equal([
 			'hello',
 			'world',
@@ -37,7 +36,8 @@ eye.describe("Configure", () => {
 			'just',
 			'for',
 			'test'
-		])
+		]),
+		$ => $([...db._data[0].data.keywords]).Equal(["hello", "world"])
 	)
 	eye.test("Select", "node",
 		$ => $(db.select("world")[0].data.title).Equal("Hello World"),

@@ -7,33 +7,16 @@ class OSDatabase {
 		this._data = []
 	}
 	configure(main, secondary = null, lang = "en") {
-		const stopwords = require('stopwords-iso');
-		const stops = stopwords[lang]
+		const tokenize = require("../Helpers/tokenize.js")
 
-		function tokenize(text) {
-			const t = text.toLowerCase()
-			const tokens = t.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?]/g, "")
-				.replace(/\s{2,}/g, " ")
-				.split(" ")
-			let out = []
-			tokens.forEach(str => {
-				if (!stops.includes(str) && str != "") {
-					out.push(str)
-				}
-			})
-			if (out.length != 0) {
-				return out
-			}
-			return tokens.filter(a => a != "")
-		}
 		this.select().forEach(record => {
 			const keys = new Set()
-			tokenize(record.data[main]).forEach(t => {
+			tokenize(record.data[main], lang).forEach(t => {
 				this.keywordsCache.add(t)
 				keys.add(t)
 			})
 			if (secondary != null) {
-				tokenize(record.data[secondary]).forEach(t => {
+				tokenize(record.data[secondary], lang).forEach(t => {
 					this.keywordsCache.add(t)
 					keys.add(t)
 				})
@@ -53,33 +36,16 @@ class OSDatabase {
 		}
 	}
 	add(records, main, secondary = null, lang="en") {
-		const stopwords = require('stopwords-iso');
-		const stops = stopwords[lang]
+		const tokenize = require("../Helpers/tokenize.js")
 
-		function tokenize(text) {
-			const t = text.toLowerCase()
-			const tokens = t.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?]/g, "")
-				.replace(/\s{2,}/g, " ")
-				.split(" ")
-			let out = []
-			tokens.forEach(str => {
-				if (!stops.includes(str) && str != "") {
-					out.push(str)
-				}
-			})
-			if (out.length != 0) {
-				return out
-			}
-			return tokens.filter(a => a != "")
-		}
 		records.forEach(record => {
 			const keys = new Set()
-			tokenize(record.data[main]).forEach(t => {
+			tokenize(record.data[main], lang).forEach(t => {
 				this.keywordsCache.add(t)
 				keys.add(t)
 			})
 			if (secondary != null) {
-				tokenize(record.data[secondary]).forEach(t => {
+				tokenize(record.data[secondary], lang).forEach(t => {
 					this.keywordsCache.add(t)
 					keys.add(t)
 				})

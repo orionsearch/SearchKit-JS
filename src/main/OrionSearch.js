@@ -1,15 +1,19 @@
 const {
 	OSDatabase,
 	OSRecord
-} = require("includes.js")
+} = require("../includes.js")
 
 class OrionSearch {
 	/* Data management */
 	constructor(data, filters = []) {
-
+		this.db = data
+		this.filters = filters
 	}
-	add(filters) {
-
+	add() {
+		const args = [...arguments]
+		args.forEach(filter => {
+			this.filters.push(filter)
+		})
 	}
 
 	/* Search */

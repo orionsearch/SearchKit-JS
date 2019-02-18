@@ -20,6 +20,7 @@ class OrionSearch {
 
 	get OSSearchType() {
 		const types = {
+			quick: 0,
 			normal: 1,
 			advanced: 2
 		}
@@ -27,7 +28,14 @@ class OrionSearch {
 	}
 
 	perform(query, type=1, completion) {
+		switch (type) {
+			case this.OSSearchType.quick:
+				const OSQuick = require("./Search/quick.js")
+				return new OSQuick(query, completion)
+				break;
+			default:
 
+		}
 	}
 
 	/* Plugins */

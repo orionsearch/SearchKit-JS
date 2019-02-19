@@ -31,7 +31,7 @@ class OrionSearch {
 		switch (type) {
 			case this.OSSearchType.quick:
 				const OSQuick = require("./Search/quick.js")
-				return new OSQuick(query, completion)
+				return new OSQuick(query, this.db, completion)
 				break;
 			default:
 

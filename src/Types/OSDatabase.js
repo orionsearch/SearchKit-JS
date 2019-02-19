@@ -7,6 +7,8 @@ class OSDatabase {
 		this._data = []
 	}
 	configure(main, secondary = null, lang = "en") {
+		this.main = main
+		this.secondary = secondary
 		const tokenize = require("../Helpers/tokenize.js")
 
 		this.select().forEach(record => {

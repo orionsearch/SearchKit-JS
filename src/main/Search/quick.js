@@ -5,9 +5,20 @@ const {
 } = require("../includes.jss")
 
 class OSQuick {
-	constructor(query, completion) {
+	constructor(query, db, completion) {
 		this.query = query
 		this.callback = completion
+		this.db = db
+	}
+	_getKeys() {
+		const set = new Set()
+		const querySpecificKeys = this.query.keys
+		if (querySpecificKeys != null) {
+			querySpecificKeys.forEach(key => {
+				set.add(key)
+			})
+		}
+		return [...set]
 	}
 }
 

@@ -80,7 +80,7 @@ class OSDatabase {
 						out.push(record)
 					}
 				} else {
-					if (record.data[key].split(" ").includes(contains)) {
+					if (record.data[key].toLowerCase().split(" ").includes(contains)) {
 						out.push(record)
 					}
 				}

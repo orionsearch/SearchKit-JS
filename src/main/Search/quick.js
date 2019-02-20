@@ -2,7 +2,7 @@ const {
 	OSDatabase,
 	OSQuery,
 	OSRecord
-} = require("../includes.jss")
+} = require("../../includes.js")
 
 class OSQuick {
 	constructor(query, db, completion) {
@@ -17,7 +17,10 @@ class OSQuick {
 			querySpecificKeys.forEach(key => {
 				set.add(key)
 			})
+		} else {
+			set.add("keywords")
 		}
+
 		return [...set]
 	}
 }

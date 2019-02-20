@@ -2,8 +2,8 @@ class OSQuery {
 	constructor(s, lang = "en", keys = null, filters = null) {
 		this.limit = 25
 		this.str = s
-		this.keys = null
-		this.filters = null
+		this.keys = keys
+		this.filters = filters
 
 		const parsedFilters = this._removeAndParseFilters(s)
 		const str = parsedFilters[parsedFilters.length - 1]
@@ -17,7 +17,11 @@ class OSQuery {
 	}
 	_removeAndParseFilters(text) {
 		const regex = /\S*:\S*/gm
-		const matches = text.match(regex)
+		let matches = text.match(regex)
+		if (matches == null) {
+			matches = []
+		}
+
 		let t = text
 		let out = []
 		matches.forEach(filter => {

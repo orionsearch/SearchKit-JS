@@ -33,6 +33,10 @@ class OrionSearch {
 				const OSQuick = require("./Search/quick.js")
 				return new OSQuick(query, this.db, completion)
 				break;
+			case this.OSSearchType.normal:
+				const OSNormal = require("./Search/normal.js")
+				return new OSNormal(query, this.db, completion)
+				break;
 			default:
 
 		}

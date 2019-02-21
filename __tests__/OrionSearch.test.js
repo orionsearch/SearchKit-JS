@@ -64,3 +64,42 @@ eye.describe("Quick search", () => {
 		}
 	)
 })
+
+eye.describe("Normal Search", () => {
+	eye.test("Keywords", "node",
+		$ => {
+			const db = new OSDatabase()
+			db._data = [
+				new OSRecord({
+					title: "Hello World",
+					author: "Me"
+				}),
+				new OSRecord({
+					title: "How are you",
+					author: "you"
+				}),
+				new OSRecord({
+					title: "Random titles",
+					author: "someone"
+				}),
+				new OSRecord({
+					title: "Just for test",
+					author: "someone else"
+				})
+			]
+			db.configure("title")
+
+			const os = new OrionSearch(db)
+
+			const query = new OSQuery("rand test", "en", ["title", "author"])
+
+			let out = []
+
+			const normal = os.perform(query, os.OSSearchType.normal, record => {
+				out.push(record.data.title)
+			})
+
+			return $(normal.getKeywords()).Equal(["random"])
+		}
+	)
+})

@@ -37,14 +37,28 @@ class OSNormal {
 	search() {
 		const keys = this._getKeys()
 		const keywords = this.getKeywords()
-
+		let records = new Set()
 		keys.forEach(key => {
 			keywords.forEach(word => {
 				const select = this.db.select(word, key)
 				select.forEach(record => {
-					this.callback(record)
+					let emplacement = record.data[key]
+					if (typeof emplacement == "string") {
+						emplacement = emplacement.split(" ")
+					}
+					const nbOfKeys = [...emplacement].map(k => keywords.includes(k)).filter(a => a == true).length
+					if (records.has(record)) {
+						records.delete(record)
+					}
+					record.score = nbOfKeys
+					records.add(record)
 				})
 			})
+		})
+
+		const sorted = [...records].sort((a, b) => a.score - b.score)
+		sorted.forEach(record => {
+			this.callback(record)
 		})
 	}
 

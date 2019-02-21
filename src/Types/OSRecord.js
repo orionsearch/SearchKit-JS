@@ -2,6 +2,7 @@ class OSRecord {
 	constructor(data) {
 		this.data = data
 		this._DataCopy = data
+		this.score = 0
 	}
 	main(key) {
 		if (typeof this.data[key] != "undefined") {

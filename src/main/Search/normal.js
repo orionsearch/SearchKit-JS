@@ -62,7 +62,13 @@ class OSNormal {
 			})
 		})
 
-		const sorted = [...records].sort((a, b) => a.score - b.score)
+		const sorted = [...records].sort((b, a) => {
+			if (isNaN(a.score)) {
+				return isNaN(b.score) - 1;
+			} else {
+				return a.score - b.score;
+			}
+		})
 		sorted.forEach(record => {
 			this.callback(record)
 		})

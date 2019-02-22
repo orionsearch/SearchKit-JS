@@ -132,10 +132,10 @@ eye.describe("Normal Search", () => {
 			let out = []
 
 			const normal = os.perform(query, os.OSSearchType.normal, record => {
-				console.log(record)
+				out.push(record.data.title)
 			})
 
-			return $(out).Equal(["Hello World", "Random titles", "Just for test"])
+			return $(out).Equal(["Just for test", "Random titles", "Hello World"])
 		}
 	)
 })

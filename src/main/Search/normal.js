@@ -48,7 +48,9 @@ class OSNormal {
 					}
 					const nbOfKeys = [...emplacement].map(k => {
 						if (keywords.includes(k)) {
-							return this.query.parsed.keywords[k]
+							const s = this.query.parsed.keywords[k]
+
+							return isNaN(s) ? 0 : s
 						}
 						return false
 					}).filter(a => a != false).reduce((a, c) => a + c, 0) // compute the weight for each keywords
@@ -62,13 +64,7 @@ class OSNormal {
 			})
 		})
 
-		const sorted = [...records].sort((b, a) => {
-			if (isNaN(a.score)) {
-				return isNaN(b.score) - 1;
-			} else {
-				return a.score - b.score;
-			}
-		})
+		const sorted = [...records].sort((b, a) => a.score - b.score)
 		sorted.forEach(record => {
 			this.callback(record)
 		})

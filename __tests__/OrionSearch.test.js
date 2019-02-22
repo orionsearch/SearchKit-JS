@@ -135,7 +135,7 @@ eye.describe("Normal Search", () => {
 				out.push(record.data.title)
 			})
 
-			return $(out).Equal(["Just for test", "Random titles", "Hello World"])
+			return $(out).Equal(["Just for test", "Hello World", "Random titles"])
 		}
 	)
 })

@@ -46,7 +46,13 @@ class OSNormal {
 					if (typeof emplacement == "string") {
 						emplacement = emplacement.split(" ")
 					}
-					const nbOfKeys = [...emplacement].map(k => keywords.includes(k)).filter(a => a == true).length
+					const nbOfKeys = [...emplacement].map(k => {
+						if (keywords.includes(k)) {
+							return this.query.parsed.keywords[k]
+						}
+						return false
+					}).filter(a => a != false).reduce((a, c) => a + c, 0) // compute the weight for each keywords
+
 					if (records.has(record)) {
 						records.delete(record)
 					}

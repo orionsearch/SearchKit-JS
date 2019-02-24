@@ -34,6 +34,11 @@ class OSNormal {
 		})
 		return out
 	}
+
+	get filters() {
+		return this.query.parsed.filters
+	}
+
 	search() {
 		const keys = this._getKeys()
 		const keywords = this.getKeywords()
@@ -55,11 +60,22 @@ class OSNormal {
 						return false
 					}).filter(a => a != false).reduce((a, c) => a + c, 0) // compute the weight for each keywords
 
-					if (records.has(record)) {
-						records.delete(record)
+					let br = false
+					this.filters.forEach(filter => {
+						const reg = new RegExp(filter[1], "i")
+						if (typeof record.data[filter[0]] == "undefined") {
+							br = true
+						} else if (!reg.test(record.data[filter[0]])) {
+							br = true
+						}
+					})
+					if (br === false) {
+						if (records.has(record)) {
+							records.delete(record)
+						}
+						record.score = nbOfKeys
+						records.add(record)
 					}
-					record.score = nbOfKeys
-					records.add(record)
 				})
 			})
 		})

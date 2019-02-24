@@ -102,7 +102,7 @@ eye.describe("Normal Search", () => {
 			return $(normal.getKeywords()).Equal(["random"])
 		}
 	)
-	eye.test("Search", "node",
+	eye.test("Search & Filters", "node",
 		$ => {
 			const db = new OSDatabase()
 			db._data = [
@@ -127,7 +127,7 @@ eye.describe("Normal Search", () => {
 
 			const os = new OrionSearch(db)
 
-			const query = new OSQuery("World by someone else", "en")
+			const query = new OSQuery("World author:me", "en")
 
 			let out = []
 
@@ -135,7 +135,7 @@ eye.describe("Normal Search", () => {
 				out.push(record.data.title)
 			})
 
-			return $(out).Equal(["Just for test", "Hello World", "Random titles"])
+			return $(out).Equal(["Hello World"])
 		}
 	)
 })

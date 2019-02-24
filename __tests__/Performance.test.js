@@ -35,10 +35,9 @@ eye.describe("Normal", () => {
 			keyQuery.run()
 		}
 	)
+	db.configure("headlines", "text")
+	
 	eye.test("Configure", "node",
-		$ => $(() => {
-			db.configure("headlines", "text")
-		}).toRun(),
 		$ => $(db.keywordsCache.size).Equal(22355)
 	)
 })

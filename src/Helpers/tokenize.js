@@ -4,7 +4,7 @@ const stopwords = require('stopwords-iso');
 function tokenize(text, lang="en") {
 	const stops = stopwords[lang]
 	const t = text.toLowerCase()
-	const tokens = t.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?]/g, "")
+	const tokens = t.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?'"]/g, "")
 		.replace(/\s{2,}/g, " ")
 		.split(" ")
 	let out = []

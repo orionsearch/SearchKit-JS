@@ -1,6 +1,6 @@
 {
   "name": "orionsearch",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "OrionSearch's backend SearchKit written in JavaScript",
   "main": "index.js",
   "scripts": {

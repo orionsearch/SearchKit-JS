@@ -47,7 +47,7 @@ class OrionSearch {
 
 	/* Plugins */
 	registerPlugin(plugin) {
-
+		
 	}
 }
 module.exports = OrionSearch;

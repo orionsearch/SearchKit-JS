@@ -37,8 +37,11 @@ class OrionSearch {
 				const OSNormal = require("./Search/normal.js")
 				return new OSNormal(query, this.db, completion)
 				break;
+			case this.OSSearchType.advanced:
+				throw "[OrionSearch] Advanced search type is currently not supported."
+				break;
 			default:
-
+				throw "[OrionSearch] You should choose a valid search type"
 		}
 	}
 

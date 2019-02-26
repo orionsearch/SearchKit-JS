@@ -125,7 +125,7 @@ eye.describe("Normal Search", () => {
 			]
 			db.configure("title", "author")
 
-			const os = new OrionSearch(db)
+			const os = new OrionSearch(db, ["author"])
 
 			const query = new OSQuery("World author:me", "en")
 

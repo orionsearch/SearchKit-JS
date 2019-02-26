@@ -5,10 +5,11 @@ const {
 } = require("../../includes.js")
 
 class OSQuick {
-	constructor(query, db, completion) {
+	constructor(query, db, completion, options) {
 		this.query = query
 		this.callback = completion
 		this.db = db
+		this.options = options
 		this.search()
 	}
 	_getKeys() {

@@ -28,14 +28,17 @@ class OrionSearch {
 	}
 
 	perform(query, type=1, completion) {
+		const options = {
+			filters: new Set(this.filters)
+		}
 		switch (type) {
 			case this.OSSearchType.quick:
 				const OSQuick = require("./Search/quick.js")
-				return new OSQuick(query, this.db, completion)
+				return new OSQuick(query, this.db, completion, options)
 				break;
 			case this.OSSearchType.normal:
 				const OSNormal = require("./Search/normal.js")
-				return new OSNormal(query, this.db, completion)
+				return new OSNormal(query, this.db, completion, options)
 				break;
 			case this.OSSearchType.advanced:
 				throw "[OrionSearch] Advanced search type is currently not supported."
@@ -47,7 +50,7 @@ class OrionSearch {
 
 	/* Plugins */
 	registerPlugin(plugin) {
-		
+
 	}
 }
 module.exports = OrionSearch;

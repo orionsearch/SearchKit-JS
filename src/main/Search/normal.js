@@ -5,10 +5,13 @@ const {
 } = require("../../includes.js")
 
 class OSNormal {
-	constructor(query, db, completion) {
+	constructor(query, db, completion, options) {
 		this.query = query
 		this.callback = completion
 		this.db = db
+		this.options = options
+
+		this.cacheFilters()
 		this.search()
 	}
 	_getKeys() {
@@ -35,8 +38,8 @@ class OSNormal {
 		return out
 	}
 
-	get filters() {
-		return this.query.parsed.filters
+	cacheFilters() {
+		this.filters = this.query.parsed.filters.filter(a => this.options.filters.has(a[0]))
 	}
 
 	search() {

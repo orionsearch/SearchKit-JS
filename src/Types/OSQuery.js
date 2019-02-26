@@ -1,9 +1,8 @@
 class OSQuery {
-	constructor(s, lang = "en", keys = null, filters = null) {
+	constructor(s, lang = "en", keys = null) {
 		this.limit = 25
 		this.str = s
 		this.keys = keys
-		this.filters = filters
 
 		const parsedFilters = this._removeAndParseFilters(s)
 		const str = parsedFilters[parsedFilters.length - 1]

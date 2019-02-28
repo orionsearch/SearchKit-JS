@@ -6,12 +6,12 @@ class OSDatabase {
 		this.keywordsCache = cache
 		this._data = []
 	}
-	configure(main, secondary = null, lang = "en") {
+	configure(main, secondary = null, lang = "en", completion=()=>{}) {
 		this.main = main
 		this.secondary = secondary
 		const tokenize = require("../Helpers/tokenize.js")
 
-		this.select().forEach(record => {
+		this.select().forEach((record, index) => {
 			const keys = new Set()
 			tokenize(record.data[main], lang).forEach(t => {
 				this.keywordsCache.add(t)
@@ -27,6 +27,10 @@ class OSDatabase {
 				this._kFunction(keys, record)
 			} else {
 				this._keywords(keys, record)
+			}
+
+			if (index % 1000 == 0) {
+				completion(index)
 			}
 		})
 	}

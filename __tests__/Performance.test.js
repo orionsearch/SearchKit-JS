@@ -90,7 +90,9 @@ eye.describe("Normal", () => {
 				keyQuery.run()
 			}
 		)
-		db.configure("headlines", "text")
+		db.configure("headlines", "text", "en", i => {
+			console.log(`Tokenized ${i} rows`)
+		})
 
 		eye.test("Configure", "node",
 			$ => $(db.keywordsCache.size).Equal(22355)

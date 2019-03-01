@@ -11,32 +11,40 @@ class OSDatabase {
 		this.secondary = secondary
 		const tokenize = require("../Helpers/tokenize.js")
 
-		this.select().forEach((record, index) => {
-			const keys = new Set()
-			tokenize(record.data[main], lang).forEach(t => {
-				this.keywordsCache.add(t)
-				keys.add(t)
-			})
-			if (secondary != null) {
-				tokenize(record.data[secondary], lang).forEach(t => {
+		const length = this.select().length
+		let array = []
+		for (var i = 0; i < length; i+=1000) {
+			const max = i + 1000 > length ? length : i + 1000
+			array.push([i, max])
+		}
+
+		array.forEach((range, index) => {
+			const select = this.select(null, "keywords", range)
+			console.log(select.length)
+			select.forEach(record => {
+				const keys = new Set()
+				tokenize(record.data[main], lang).forEach(t => {
 					this.keywordsCache.add(t)
 					keys.add(t)
 				})
-			}
-			if (typeof this._kFunction != "undefined") {
-				this._kFunction(keys, record)
-			} else {
-				this._keywords(keys, record)
-			}
-
-			if (index % 1000 == 0) {
-				completion(index)
-			}
+				if (secondary != null) {
+					tokenize(record.data[secondary], lang).forEach(t => {
+						this.keywordsCache.add(t)
+						keys.add(t)
+					})
+				}
+				if (typeof this._kFunction != "undefined") {
+					this._kFunction(keys, record)
+				} else {
+					this._keywords(keys, record)
+				}
+			})
+			completion(array[index][1])
 		})
 	}
-	select(contains = null, key="keywords") {
+	select(contains = null, key="keywords", range=null) {
 		if (typeof this._sFunction != "undefined") {
-			return this._sFunction(key, contains)
+			return this._sFunction(key, contains, range)
 		} else {
 			return this._select(key, contains)
 		}

@@ -10,13 +10,14 @@ eye.describe("Normal", () => {
 		const data = require(__testDir + '../node_modules/better-sqlite3')(__testDir + '../../TestDB/summary_small.db');
 		const db = new OSDatabase()
 		db.setPlugin(
-			(key, contains) => {
+			(key, contains, range) => {
+				const r = range == null ? [0, Number.MAX_SAFE_INTEGER] : range
 				let rows = []
 				if (contains == null) {
-					const query = data.prepare(`SELECT * FROM main`)
+					const query = data.prepare(`SELECT rowid, * FROM main WHERE rowid BETWEEN ${r[0]} AND ${r[1]}`)
 					rows = query.all()
 				} else {
-					const query = data.prepare(`SELECT * FROM main WHERE ${key} LIKE "%${contains}%"`)
+					const query = data.prepare(`SELECT rowid, * FROM main WHERE ${key} LIKE "%${contains}%" AND rowid BETWEEN ${r[0]} AND ${r[1]}`)
 					rows = query.all()
 				}
 				let out = []
@@ -64,13 +65,14 @@ eye.describe("Normal", () => {
 		const data = require(__testDir + '../node_modules/better-sqlite3')(__testDir + '../../TestDB/summary_big.db');
 		const db = new OSDatabase()
 		db.setPlugin(
-			(key, contains) => {
+			(key, contains, range) => {
+				const r = range == null ? [0, Number.MAX_SAFE_INTEGER] : range
 				let rows = []
 				if (contains == null) {
-					const query = data.prepare(`SELECT * FROM main`)
+					const query = data.prepare(`SELECT rowid, * FROM main WHERE rowid BETWEEN ${r[0]} AND ${r[1]}`)
 					rows = query.all()
 				} else {
-					const query = data.prepare(`SELECT * FROM main WHERE ${key} LIKE "%${contains}%"`)
+					const query = data.prepare(`SELECT rowid, * FROM main WHERE ${key} LIKE "%${contains}%" AND rowid BETWEEN ${r[0]} AND ${r[1]}`)
 					rows = query.all()
 				}
 				let out = []
@@ -86,7 +88,7 @@ eye.describe("Normal", () => {
 				query.run()
 			},
 			(keywords, record) => {
-				const keyQuery = data.prepare(`UPDATE main SET keywords = "${[...keywords].join(' ')}" WHERE ${record.main} = '${record.data[record.main].replace(/\'/g,"''")}';`)
+				const keyQuery = data.prepare(`UPDATE main SET keywords = "${[...keywords].join(' ')}" WHERE rowid = ${record.data.rowid};`)
 				keyQuery.run()
 			}
 		)

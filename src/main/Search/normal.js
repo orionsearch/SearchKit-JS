@@ -31,7 +31,25 @@ class OSNormal {
 		let out = []
 		keywords.forEach(key => {
 			const scores = cache.map(a => this._levenshtein(a, key))
-			const max = Math.min(...scores)
+
+			function minMax2DArray(arr, idx) {
+				var max = -Number.MAX_VALUE,
+					min = Number.MAX_VALUE;
+				arr.forEach(function(e) {
+					if (max < e[idx]) {
+						max = e[idx];
+					}
+					if (min > e[idx]) {
+						min = e[idx];
+					}
+				});
+				return {
+					max: max,
+					min: min
+				};
+			}
+
+			const max = minMax2DArray(scores).min
 			const i = scores.indexOf(max)
 			out.push(cache[i])
 		})

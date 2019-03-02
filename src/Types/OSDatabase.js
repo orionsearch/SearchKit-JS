@@ -20,7 +20,7 @@ class OSDatabase {
 
 		array.forEach((range, index) => {
 			const select = this.select(null, "keywords", range)
-			console.log(select.length)
+
 			select.forEach(record => {
 				const keys = new Set()
 				tokenize(record.data[main], lang).forEach(t => {

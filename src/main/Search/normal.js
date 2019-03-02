@@ -32,24 +32,18 @@ class OSNormal {
 		keywords.forEach(key => {
 			const scores = cache.map(a => this._levenshtein(a, key))
 
-			function minMax2DArray(arr, idx) {
-				var max = -Number.MAX_VALUE,
-					min = Number.MAX_VALUE;
-				arr.forEach(function(e) {
-					if (max < e[idx]) {
-						max = e[idx];
-					}
-					if (min > e[idx]) {
-						min = e[idx];
-					}
-				});
-				return {
-					max: max,
-					min: min
-				};
+			function getMin(arr) {
+				let len = arr.length;
+				let min = Infinity;
+
+				while (len--) {
+					min = arr[len] < min ? arr[len] : min;
+				}
+				return min;
 			}
 
-			const max = minMax2DArray(scores).min
+			const max = getMin(scores)
+
 			const i = scores.indexOf(max)
 			out.push(cache[i])
 		})
@@ -71,8 +65,10 @@ class OSNormal {
 					let emplacement = record.data[key]
 					if (typeof emplacement == "string") {
 						emplacement = emplacement.split(" ")
+					} else if (emplacement == null || typeof emplacement == "undefined") {
+						emplacement = []
 					}
-					const nbOfKeys = [...emplacement].map(k => {
+					const nbOfKeys = Array.from(emplacement).map(k => {
 						if (keywords.includes(k)) {
 							const s = this.query.parsed.keywords[k]
 
@@ -83,7 +79,8 @@ class OSNormal {
 
 					let br = false
 					this.filters.forEach(filter => {
-						const reg = new RegExp(filter[1], "i")
+						const reg = new RegExp(`\\b${filter[1]}\\b`, "i")
+
 						if (typeof record.data[filter[0]] == "undefined") {
 							br = true
 						} else if (!reg.test(record.data[filter[0]])) {
@@ -101,7 +98,7 @@ class OSNormal {
 			})
 		})
 
-		const sorted = [...records].sort((b, a) => a.score - b.score)
+		const sorted = Array.from(records).sort((b, a) => a.score - b.score)
 		sorted.forEach(record => {
 			this.callback(record)
 		})

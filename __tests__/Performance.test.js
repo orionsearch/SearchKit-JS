@@ -97,7 +97,7 @@ eye.describe("Normal", () => {
 		})
 
 		eye.test("Configure", "node",
-			$ => $(db.keywordsCache.size).Equal(22355)
+			$ => $(db.keywordsCache.size).Equal(125506)
 		)
 
 		const os = new OrionSearch(db)
@@ -114,7 +114,7 @@ eye.describe("Normal", () => {
 				const end = process.hrtime(start);
 				const time = Math.round((end[0] * 1000) + (end[1] / 1000000))
 				console.log(`Found: ${out.length} records in ${time} ms`)
-				return $(time).isSmaller(500) // 500 ms
+				return $(time).isSmaller(750) // 750 ms
 			}
 		)
 	})

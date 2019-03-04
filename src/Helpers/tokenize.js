@@ -7,12 +7,7 @@ function tokenize(text, lang="en") {
 	const tokens = t.replace(/[^a-zA-Z0-9 ]/g, "")
 		.replace(/\s{2,}/g, " ")
 		.split(" ")
-	let out = []
-	tokens.forEach(str => {
-		if (!stops.includes(str) && str != "") {
-			out.push(str)
-		}
-	})
+	let out = tokens.filter(str => !stops.includes(str) && str != "")
 	if (out.length != 0) {
 		return out
 	}

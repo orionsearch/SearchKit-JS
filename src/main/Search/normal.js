@@ -1,9 +1,3 @@
-const {
-	OSDatabase,
-	OSQuery,
-	OSRecord
-} = require("../../includes.js")
-
 class OSNormal {
 	constructor(query, db, completion, options) {
 		this.query = query
@@ -66,7 +60,7 @@ class OSNormal {
 					let emplacement = record.data[key]
 					if (typeof emplacement == "string") {
 						emplacement = emplacement.split(" ")
-					} else if (emplacement == null || typeof emplacement == "undefined") {
+					} else if (emplacement == null) {
 						emplacement = []
 					}
 					const nbOfKeys = Array.from(emplacement).map(k => {

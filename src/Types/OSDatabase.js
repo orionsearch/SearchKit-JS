@@ -1,6 +1,3 @@
-const {
-	OSRecord
-} = require("../includes.js")
 class OSDatabase {
 	constructor(cache = new Set()) {
 		this.keywordsCache = cache

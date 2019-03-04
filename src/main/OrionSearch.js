@@ -1,8 +1,3 @@
-const {
-	OSDatabase,
-	OSRecord
-} = require("../includes.js")
-
 class OrionSearch {
 	/* Data management */
 	constructor(data, filters = []) {

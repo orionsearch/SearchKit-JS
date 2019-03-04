@@ -1,9 +1,3 @@
-const {
-	OSDatabase,
-	OSQuery,
-	OSRecord
-} = require("../../includes.js")
-
 class OSQuick {
 	constructor(query, db, completion, options) {
 		this.query = query

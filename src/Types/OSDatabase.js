@@ -47,6 +47,12 @@ class OSDatabase {
 		}
 	}
 	add(records, main, secondary = null, lang="en") {
+		if (typeof this._aFunction != "undefined") {
+			this._aFunction(contains)
+		} else {
+			this._add(records)
+		}
+		
 		const tokenize = require("../Helpers/tokenize.js")
 
 		records.forEach(record => {
@@ -67,11 +73,6 @@ class OSDatabase {
 				this._keywords(keys, record)
 			}
 		})
-		if (typeof this._aFunction != "undefined") {
-			return this._aFunction(contains)
-		} else {
-			return this._add(records)
-		}
 	}
 	setPlugin(select, add, keywords) {
 		this._sFunction = select

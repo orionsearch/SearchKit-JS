@@ -45,7 +45,11 @@ class OrionSearch {
 
 	/* Plugins */
 	registerPlugin(plugin) {
-
+		if (typeof this.plugins == "undefined") {
+			this.plugins = [plugin]
+		} else {
+			this.plugins.push(plugin)
+		}
 	}
 }
 module.exports = OrionSearch;

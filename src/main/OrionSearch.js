@@ -24,7 +24,8 @@ class OrionSearch {
 
 	perform(query, type=1, completion) {
 		const options = {
-			filters: new Set(this.filters)
+			filters: new Set(this.filters),
+			plugins: typeof this.plugins == "undefined" ? [] : this.plugins // safely unwraps 
 		}
 		switch (type) {
 			case this.OSSearchType.quick:

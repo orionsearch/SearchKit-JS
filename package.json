@@ -24,9 +24,9 @@
   "homepage": "https://github.com/orionsearch/SearchKit-JS#readme",
   "devDependencies": {
     "better-sqlite3": "^5.4.0",
-    "eye.js": "^1.1.2"
-  },
-  "dependencies": {
-    "stopwords-iso": "^0.4.0"
+    "eye.js": "^1.1.2",
+    "stopwords-iso": "^0.4.0",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.9"
   }
 }

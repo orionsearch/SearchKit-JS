@@ -4,7 +4,8 @@
   "description": "OrionSearch's backend SearchKit written in JavaScript",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/.bin/eye"
+    "test": "./node_modules/.bin/eye && npm run build",
+    "build": "webpack"
   },
   "repository": {
     "type": "git",

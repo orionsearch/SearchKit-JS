@@ -40,7 +40,7 @@ eye.describe("Normal", () => {
 		db.configure("headlines", "text")
 
 		eye.test("Configure", "node",
-			$ => $(db.keywordsCache.size).Equal(22355)
+			$ => $(db.keywordsCache.size).Equal(22266)
 		)
 
 		const os = new OrionSearch(db)
@@ -97,7 +97,7 @@ eye.describe("Normal", () => {
 		})
 
 		eye.test("Configure", "node",
-			$ => $(db.keywordsCache.size).Equal(125506)
+			$ => $(db.keywordsCache.size).Equal(123360)
 		)
 
 		const os = new OrionSearch(db)
